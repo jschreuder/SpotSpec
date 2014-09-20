@@ -43,5 +43,42 @@ Which should give the following output when run:
   OK   when describing an example of a spec suite
   -----------------------------------------------------
   [+] It expects a property on $this to be set
-  [+] expects the PHP function trim() to work
+  [+] It expects the PHP function trim() to work
+  -----------------------------------------------------
+
+Though you don't have to use the Expectation object, you can just return a
+boolean. Or you might combine multiple expectations:
+
+.. code-block:: php
+
+  <?php
+
+  use Webspot\SpotSpec\Describe;
+
+  return (new Describe('an example of a spec suite'))
+
+      ->beforeEach(function() {
+          $this->setUpDone = true;
+      });
+
+      ->it('expects a property on $this to be set', function() {
+          return $this->setUpDone === true;
+      })
+
+      ->it('expects the PHP function trim() to work', function() {
+          $value = trim("\t\n test \n");
+          return $this->expects($value)->toEqual('test')
+              && $this->expects($value)->toBeAn('integer');
+      })
+  ;
+
+Now as the second test will obviously fail, the result will look like the
+following after these modifications:
+
+.. code-block::
+
+  FAIL when describing an example of a spec suite
+  -----------------------------------------------------
+  [+] It expects a property on $this to be set
+  [ ] It expects the PHP function trim() to work
   -----------------------------------------------------
