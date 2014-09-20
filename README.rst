@@ -15,7 +15,7 @@ or provide a relative path from your current working directory at the end:
 
 A test may look something like the following:
 
-.. code-block: php
+.. code-block:: php
 
   <?php
 
@@ -38,7 +38,7 @@ A test may look something like the following:
 
 Which should give the following output when run:
 
-.. code-block
+.. code-block::
 
   OK   when describing an example of a spec suite
   -----------------------------------------------------
