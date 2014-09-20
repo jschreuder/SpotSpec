@@ -17,31 +17,31 @@ A test may look something like the following:
 
 .. code-block: php
 
-    <?php
+  <?php
 
-    use Webspot\SpotSpec\Describe;
+  use Webspot\SpotSpec\Describe;
 
-    return (new Describe('an example of a spec suite'))
+  return (new Describe('an example of a spec suite'))
 
-        ->beforeEach(function() {
-            $this->setUpDone = true;
-        });
+      ->beforeEach(function() {
+          $this->setUpDone = true;
+      });
 
-        ->it('expects a property on $this to be set', function() {
-            return $this->expects($this->setUpDone)->toBeTrue();
-        })
+      ->it('expects a property on $this to be set', function() {
+          return $this->expects($this->setUpDone)->toBeTrue();
+      })
 
-        ->it('expects the PHP function trim() to work', function() {
-            return $this->expects(trim("\t\n test \n"))->toEqual('test');
-        })
-    ;
+      ->it('expects the PHP function trim() to work', function() {
+          return $this->expects(trim("\t\n test \n"))->toEqual('test');
+      })
+  ;
 
 Which should give the following output when run:
 
 .. code-block
 
-    OK   when describing an example of a spec suite
-    -----------------------------------------------------
-    [+] It expects a property on $this to be set
-    [+] expects the PHP function trim() to work
-    -----------------------------------------------------
+  OK   when describing an example of a spec suite
+  -----------------------------------------------------
+  [+] It expects a property on $this to be set
+  [+] expects the PHP function trim() to work
+  -----------------------------------------------------
