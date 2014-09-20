@@ -114,6 +114,8 @@ class Describe
      */
     public function run()
     {
+        $this->result = [];
+
         $this->before && call_user_func($this->before);
         $resetData = $this->data;
         foreach ($this->specs as $description => $spec) {

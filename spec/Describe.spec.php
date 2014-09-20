@@ -23,7 +23,37 @@ return (new Describe('how Describe describes a spec suite'))
         return $this->expect($this->suite->getDescription())->toEqual($this->description);
     })
 
-    ->it('will fail', function () {
-        return $this->expect(true)->toNotBeFalse();
+    ->it('will run before() and after()', function () {
+        $this->suite->before(function () {
+            $this->start = 40;
+        });
+        $this->suite->after(function () {
+            $this->end = $this->start + 2;
+        });
+        $this->suite->run();
+        return $this->expect($this->suite->end)->toEqual(42);
     })
+
+    ->it('will run beforeEach() and afterEach()', function () {
+        $beforeCount = 0;
+        $afterCount = 0;
+        $this->suite->beforeEach(function () use (&$beforeCount) {
+            $beforeCount++;
+        });
+        $this->suite->afterEach(function () use (&$afterCount) {
+            $afterCount++;
+        });
+
+        $this->suite->it('tests', function () {
+            return true;
+        });
+        $this->suite->it('fails', function () {
+            return false;
+        });
+
+        $this->suite->run();
+
+        return $this->expect($beforeCount)->toEqual(2)
+            && $this->expect($afterCount)->toEqual(2);
+    });
 ;
