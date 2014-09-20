@@ -130,11 +130,15 @@ class Expectation
 
     public function throwException($class)
     {
+        if (!is_callable($this->value)) {
+            return false;
+        }
+
         try {
-            $this->value = call_user_func($this->value);
+            $this->value = call_user_func_array($this->value, array_slice(func_get_args(), 1));
             return false;
         } catch (\Exception $e) {
-            return get_class($this->value) === $class;
+            return get_class($e) === $class;
         }
     }
 
