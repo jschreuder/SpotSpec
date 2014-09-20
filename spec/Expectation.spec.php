@@ -94,4 +94,17 @@ return (new Describe('how Expectation makes handling expectations nicer'))
                 return $value !== $match;
             }, 42);
     })
+
+    ->it('should be able to catch an exception', function () {
+        return (new Expectation(function () { throw new \RuntimeException; }))->toThrowException('RuntimeException')
+            && (new Expectation(function () { throw new \RuntimeException; }))->toNotThrowException('DomainException')
+            && (new Expectation(function () { return true; }))->toNotThrowException('Exception');
+    })
+
+    ->it('should be able to execute a callable and work with its result', function () {
+        $expectation = new Expectation(function ($value) { return $value; });
+        return $expectation->toBeExecutable(42)
+            && $expectation->toEqual(42)
+            && $expectation->toNotBeExecutable();
+    })
 ;
