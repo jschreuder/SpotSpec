@@ -138,6 +138,15 @@ class Describe
     }
 
     /**
+     * @param   mixed $value
+     * @return  Expectation
+     */
+    public function expect($value)
+    {
+        return new Expectation($value);
+    }
+
+    /**
      * @param   string $key
      * @param   mixed $data
      * @return  void
