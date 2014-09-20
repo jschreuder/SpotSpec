@@ -115,14 +115,26 @@ class Describe
     public function run()
     {
         $this->before && call_user_func($this->before);
+        $resetData = $this->data;
         foreach ($this->specs as $description => $spec) {
-            $this->beforeEach && call_user_func($this->beforeEach);
-            $this->result[$description] = call_user_func($spec);
-            $this->afterEach && call_user_func($this->afterEach);
+            $this->data = $resetData;
+            $this->result[$description] = $this->runSpec($spec);
         }
         $this->after && call_user_func($this->after);
 
         return count($this->result) === count(array_filter($this->result));
+    }
+
+    /**
+     * @param   \Closure $spec
+     * @return  bool
+     */
+    public function runSpec(\Closure $spec)
+    {
+        $this->beforeEach && call_user_func($this->beforeEach);
+        $result = call_user_func($spec);
+        $this->afterEach && call_user_func($this->afterEach);
+        return $result;
     }
 
     /**
