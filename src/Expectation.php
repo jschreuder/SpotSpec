@@ -24,7 +24,7 @@ namespace Webspot\SpotSpec;
  * @method  bool  toContain($match)
  * @method  bool  toNotContain($match)
  * @method  bool  toBeGreaterThan($match)
- * @method  bool  toNotGreaterThan($match)
+ * @method  bool  toNotBeGreaterThan($match)
  * @method  bool  toBeLesserThan($match)
  * @method  bool  toNotBeLesserThan($match)
  * @method  bool  toValidate(\Closure $validator)
@@ -125,7 +125,7 @@ class Expectation
 
     public function validate(\Closure $validator)
     {
-        return call_user_func($validator, $this->value);
+        return call_user_func_array($validator, array_merge([$this->value], array_slice(func_get_args(), 1)));
     }
 
     public function throwException($class)

@@ -73,4 +73,25 @@ return (new Describe('how Expectation makes handling expectations nicer'))
                 return (new Expectation(new stdClass()))->toContain('something');
             }))->toThrowException('BadMethodCallException');
     })
+
+    ->it('should be able to compare greatness', function () {
+        return (new Expectation('42'))->toBeGreaterThan(0)
+            && (new Expectation(42))->toNotBeGreaterThan('42')
+            && (new Expectation('2014-09-19'))->toBeGreaterThan('2014-09-18');
+    })
+
+    ->it('should be able to compare lessness', function () {
+        return (new Expectation('0'))->toBeLesserThan(42)
+            && (new Expectation(42))->toNotBeLesserThan('42')
+            && (new Expectation('2014-09-19'))->toBeLesserThan('2014-09-20');
+    })
+
+    ->it('should be able to validate the value', function () {
+        return (new Expectation(42))->toValidate(function ($value, $match) {
+                return $value === $match;
+            }, 42)
+            && (new Expectation(42))->toNotValidate(function ($value, $match) {
+                return $value !== $match;
+            }, 42);
+    })
 ;
