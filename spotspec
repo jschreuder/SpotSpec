@@ -1,0 +1,9 @@
+<?php
+
+require __DIR__.'/vendor/autoload.php';
+
+$app = new \Symfony\Component\Console\Application('SpotSpec', '0.1');
+
+$app->add(new \Webspot\SpotSpec\Command\SpecRunner());
+
+$app->run();
