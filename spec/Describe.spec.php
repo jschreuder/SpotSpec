@@ -19,5 +19,5 @@ return (new Describe('how Describe describes a spec suite'))
         return $this->expect($this->suite->getDescription())->toEqual($this->description);
     })
     ->it('will fail', function () {
-        return $this->expect(true)->toBeFalse();
+        return $this->expect(true)->toNotBeFalse();
     });

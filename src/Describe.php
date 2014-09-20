@@ -65,7 +65,7 @@ class Describe
             throw new \DomainException('Description already in use.');
         }
 
-        $this->specs[$description] = $spec;
+        $this->specs[$description] = $spec->bindTo($this);
         return $this;
     }
 
@@ -75,7 +75,7 @@ class Describe
      */
     public function before(\Closure $before)
     {
-        $this->before = $before;
+        $this->before = $before->bindTo($this);
         return $this;
     }
 
@@ -85,7 +85,7 @@ class Describe
      */
     public function beforeEach(\Closure $before)
     {
-        $this->beforeEach = $before;
+        $this->beforeEach = $before->bindTo($this);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class Describe
      */
     public function after(\Closure $after)
     {
-        $this->after = $after;
+        $this->after = $after->bindTo($this);
         return $this;
     }
 
@@ -105,7 +105,7 @@ class Describe
      */
     public function afterEach(\Closure $after)
     {
-        $this->afterEach = $after;
+        $this->afterEach = $after->bindTo($this);
         return $this;
     }
 
