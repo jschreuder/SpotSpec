@@ -25,7 +25,7 @@ class SpecRunner extends Command
         foreach ($specs as $spec) {
             $spec = require $spec;
             if (!$spec instanceof Describe) {
-                throw new \RuntimeException('All spec suites must be instances of Describe.');
+                throw new \RuntimeException('All spec suites must return instances of Describe.');
             }
             $success = $spec->run();
             $desc = $spec->getDescription();
